@@ -34,7 +34,7 @@ CREATE TABLE `editoras_livros` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-)
+);
 
 CREATE TABLE `autores` (
   `id_autor` int(11) NOT NULL,
