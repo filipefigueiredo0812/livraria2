@@ -12,4 +12,5 @@ Livraria
 </a></li>
 @endforeach
 </ul>
+<a href="{{route('editoras.create')}}" class="btn btn-info" role="button">Nova Editora</a>
 @endsection

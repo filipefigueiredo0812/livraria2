@@ -18,12 +18,12 @@ class Livro extends Model
         'total_paginas',
         'data_edicao',
         'isbn',
-        'observacao',
+        'observacoes',
         'imagem_capa',
         'id_genero',
         'id_autor',
         'sinopse'
-    ]
+    ];
         
     
     

@@ -36,7 +36,7 @@ class LivrosController extends Controller
               'total_paginas'=>['nullable', 'numeric', 'min:1'],
               'data_edicao'=>['nullable', 'date'],
               'isbn'=>['required', 'min:13', 'max:13'],
-              'observacao'=>['nullable', 'min:3', 'max:255'],
+              'observacoes'=>['nullable', 'min:3', 'max:255'],
               'imagem_capa'=>['nullable'],
               'id_genero'=>['numeric', 'nullable'],
               'id_autor'=>['numeric', 'nullable'],
@@ -52,12 +52,12 @@ class LivrosController extends Controller
         $total_paginas = $r->total_paginas;
         $data_edicao = $r->data_edicao;
         $isbn
-        
-        
-        return view('livros.store'[
-            'novoLivro'=>$novoLivro
-        ]);
         */
+        
+        return redirect()->route('livros.show', [
+            'id'=>$livro->id_livro
+        ]);
+        
     }
     
 }

@@ -1,1 +1,0 @@
-{{$novoLivro->titulo}}
