@@ -18,3 +18,7 @@ Created_at:{{$autores->created_at}}<br>
 Updated_at:{{$autores->updated_at}}<br>
 Deleted_at:{{$autores->deleted_at}}
 </ul>
+
+<br>
+<br>
+<a href="{{route('autores.edit', ['ida'=>$autores->id_autor])}}" class="btn btn-info" role="button">Editar Autor</a>

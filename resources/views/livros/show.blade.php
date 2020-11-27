@@ -14,7 +14,7 @@ Imagem Capa:{{$livro->imagem_capa}}<br>
         Data Edição:{{$editora->nome}}<br>
         @endforeach
     @else
-        <diV class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert">
         Sem o nome do editora definido
         </div>
     @endif
@@ -22,7 +22,7 @@ Imagem Capa:{{$livro->imagem_capa}}<br>
     @if(isset ($livro->genero->designacao))
         Genero:{{$livro->genero->designacao}}<br>
     @else
-        <diV class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert">
         Sem género definido
         </div>
     @endif
@@ -32,7 +32,7 @@ Imagem Capa:{{$livro->imagem_capa}}<br>
             Autor:{{$autor->nome}}<br>
         @endforeach
     @else
-        <diV class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert">
         Sem o nome do autor definido
         </div>
     @endif
@@ -42,3 +42,8 @@ Created_at:{{$livro->created_at}}<br>
 Updated_at:{{$livro->updated_at}}<br>
 Deleted_at:{{$livro->deleted_at}}
 </ul>
+
+
+<br>
+<br>
+<a href="{{route('livros.edit', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Editar Livro</a>

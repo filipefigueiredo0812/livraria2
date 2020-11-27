@@ -1,18 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <title>@yield('titulo-pagina')</title>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/all.min.css')}}">
+    <head>
+        <meta charset="utf-8">
+        <title>@yield('titulo')</title>
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"> 
+        <link rel="stylesheet" href="{{asset('css/fa.css')}}"> 
+        
+        <style>
+        .container{ width:100%; height:100%;}
+            
+            html, body {
+            height: 100%;
+            margin: 0;
+            }
+            body{
+            background: #536976;  
+            background: -webkit-linear-gradient(to right, #292E49, #536976); 
+            background: linear-gradient(to right, #292E49, #536976);
 
-    <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/all.min.js')}}"></script>
-</head>
-<body>
-    <h1 style="text-shadow: 3px 3px 3px rgba(255, 255, 255, 0.4);  text-align:center;">@yield('header')</h1>
-    @yield('conteudo')
+            background-repeat: no-repeat; height:100%;
+            }
+            
+            a:link {
+            color: black;
+            background-color: transparent;
+            text-decoration: none;
+            }
+
+            a:visited {
+            color: black;
+            background-color: transparent;
+            text-decoration: none;
+            }
+
+            a:hover {
+            color: black;
+            background-color: transparent;
+            text-decoration: underline;
+            }
+
+            a:active {
+            color: black;
+            background-color: transparent;
+            text-decoration: underline;
+            }
+            h1{
+                text-shadow: 3px 3px 3px rgba(255, 255, 255, 0.4);
+                text-align: center;
+            }
+            
+        </style>
+        
+        
+    </head>
+    <body>
+    <div class="container">
+        <h1>@yield('header')</h1>
+        <div>
+        @yield('conteudo')
     
     
     
@@ -41,5 +86,16 @@
 </nav>
             
         </div>
+    </div>
+</div>
+        <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.js')}}"></script>
+        <script src="{{asset('js/fa.js')}}"></script>
 </body>
 </html>
+
+
+
+
+
+
