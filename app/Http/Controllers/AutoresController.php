@@ -49,14 +49,28 @@ class AutoresController extends Controller
     public function edit(Request $request){
         $idAutores = $request->ida;
         $autores=Autor::where('id_autor',$idAutores)->with('livros')->first();
-        return view('autores.edit',[
+        if(is_null($autores)){
+                return redirect()->route('autores.index')->with('msg', 'O autor não existe');
+            }
+            else
+            {
+                return view('autores.edit',[
             'autores'=>$autores
         ]);
+            }
+        
     }
+    
+    
      public function update(Request $r){
         $idAutores = $r->ida;
         $autores=Autor::where('id_autor',$idAutores)->first();
-         $atualizarAutor = $r->validate ([
+         if(is_null($autores)){
+                return redirect()->route('autores.index')->with('msg', 'O autor não existe');
+            }
+            else
+            {
+                $atualizarAutor = $r->validate ([
               'nome'=>['required', 'min:3', 'max:100'],
               'nacionalidade'=>['nullable', 'min:3', 'max:20'],
               'data_nascimento'=>['nullable', 'date'],
@@ -66,6 +80,41 @@ class AutoresController extends Controller
         return redirect()->route('autores.show',[
             'ida'=>$autores->id_autor
         ]);
+            }
+         
     }
+    
+    
+    public function delete(Request $r){
+        $idAutor = $r->ida;
+        
+        $autor=Autor::where('id_autor',$idAutor)->first();
+            if(is_null($autor)){
+                return redirect()->route('autores.index')->with('msg', 'O autor não existe');
+            }
+            else
+            {
+                return view('autores.delete',[
+                'autor'=>$autor
+                ]);
+            }
+        }
+        
+        
+        
+        
+        public function destroy(Request $r){
+        $idAutor = $r->ida;
+    
+        $autor=Autor::where('id_autor',$idAutor)->first();
+            if(is_null($autor)){
+                return redirect()->route('autores.index')->with('msg', 'O autor não existe');
+            }
+            else
+            {
+                $autor->delete();
+                return redirect()->route('autores.index')->with('msg', 'Autor Eliminado');
+            }
+        }
     
 }

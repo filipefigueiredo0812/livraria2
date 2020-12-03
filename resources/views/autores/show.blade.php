@@ -1,4 +1,8 @@
 @extends('layout')
+@section('header')
+Autor
+@endsection
+@section('conteudo')
 <ul>
 IDA:{{$autores->id_autor}}<br>
 Nome:{{$autores->nome}}<br>
@@ -22,3 +26,8 @@ Deleted_at:{{$autores->deleted_at}}
 <br>
 <br>
 <a href="{{route('autores.edit', ['ida'=>$autores->id_autor])}}" class="btn btn-info" role="button">Editar Autor</a>
+
+<a href="{{route('autores.delete', ['ida'=>$autores->id_autor])}}" class="btn btn-info" role="button">Eliminar Autor</a>
+
+
+@endsection

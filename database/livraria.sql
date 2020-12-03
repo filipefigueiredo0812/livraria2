@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Nov-2020 às 16:03
+-- Generation Time: 03-Dez-2020 às 14:41
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -27,14 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `autores`
 --
-CREATE TABLE `editoras_livros` (
-  `id_editoras` int(11) NOT NULL,
-  `id_livro` varchar(100) NOT NULL,
-  `titulo` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-);
 
 CREATE TABLE `autores` (
   `id_autor` int(11) NOT NULL,
@@ -125,6 +117,21 @@ INSERT INTO `editoras` (`id_editora`, `nome`, `morada`, `observacoes`, `created_
 (6, 'Green Lines Instituto', '', NULL, NULL, NULL, NULL),
 (7, 'Lambert Academic Publishing', '', NULL, NULL, NULL, NULL),
 (8, 'Kwigia editora', '', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `editoras_livros`
+--
+
+CREATE TABLE `editoras_livros` (
+  `id_editora` int(11) NOT NULL,
+  `id_livro` int(11) NOT NULL,
+  `titulo` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -244,7 +251,7 @@ ALTER TABLE `livros`
 -- AUTO_INCREMENT for table `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `autores_livros`
@@ -256,19 +263,19 @@ ALTER TABLE `autores_livros`
 -- AUTO_INCREMENT for table `editoras`
 --
 ALTER TABLE `editoras`
-  MODIFY `id_editora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_editora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `generos`
 --
 ALTER TABLE `generos`
-  MODIFY `id_genero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_genero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `livros`
 --
 ALTER TABLE `livros`
-  MODIFY `id_livro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_livro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

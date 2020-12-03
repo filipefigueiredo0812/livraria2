@@ -64,6 +64,14 @@ Route::patch('/livros/{id}','App\Http\Controllers\LivrosController@update')
     ->name('livros.update');
 
 
+Route::get('/livros/{id}/delete','App\Http\Controllers\LivrosController@delete')
+    ->name('livros.delete');
+Route::delete('/livros','App\Http\Controllers\LivrosController@destroy')
+    ->name('livros.destroy');
+
+
+
+
 Route::get('/generos/create','App\Http\Controllers\GenerosController@create')
     ->name('generos.create');
 Route::post('/generos/store','App\Http\Controllers\GenerosController@store')
@@ -72,6 +80,15 @@ Route::get('/generos/{idg}/edit','App\Http\Controllers\GenerosController@edit')
     ->name('generos.edit');
 Route::patch('/generos/{idg}','App\Http\Controllers\GenerosController@update')
     ->name('generos.update');
+
+
+Route::get('/generos/{idg}/delete','App\Http\Controllers\GenerosController@delete')
+    ->name('generos.delete');
+Route::delete('/generos','App\Http\Controllers\GenerosController@destroy')
+    ->name('generos.destroy');
+
+
+
 
 
 Route::get('/editoras/create','App\Http\Controllers\EditorasController@create')
@@ -83,6 +100,13 @@ Route::get('/editoras/{ide}/edit','App\Http\Controllers\EditorasController@edit'
 Route::patch('/editoras/{ide}','App\Http\Controllers\EditorasController@update')
     ->name('editoras.update');
 
+Route::get('/editoras/{ide}/delete','App\Http\Controllers\EditorasController@delete')
+    ->name('editoras.delete');
+Route::delete('/editoras','App\Http\Controllers\EditorasController@destroy')
+    ->name('editoras.destroy');
+
+
+
 
 Route::get('/autores/create','App\Http\Controllers\AutoresController@create')
     ->name('autores.create');
@@ -92,3 +116,9 @@ Route::get('/autores/{ida}/edit','App\Http\Controllers\AutoresController@edit')
     ->name('autores.edit');
 Route::patch('/autores/{ida}','App\Http\Controllers\AutoresController@update')
     ->name('autores.update');
+
+
+Route::get('/autores/{ida}/delete','App\Http\Controllers\AutoresController@delete')
+    ->name('autores.delete');
+Route::delete('/autores','App\Http\Controllers\AutoresController@destroy')
+    ->name('autores.destroy');

@@ -48,6 +48,10 @@
                 text-shadow: 3px 3px 3px rgba(255, 255, 255, 0.4);
                 text-align: center;
             }
+            h3{
+                
+                text-align: center;
+            }
             
         </style>
         
@@ -59,8 +63,15 @@
         <div>
         @yield('conteudo')
     
+            
+    @if(session()->has('msg'))
+            <br><br>
+            <div class="alert alert-danger" role="alert">
+            <h4>{{session('msg')}}</h4>
+            </div>
+    @endif        
     
-    
+            
     <div class="navbar">
             
             <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light">

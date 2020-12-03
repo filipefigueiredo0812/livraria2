@@ -1,4 +1,8 @@
 @extends('layout')
+@section('header')
+Livro
+@endsection
+@section('conteudo')
 <ul>
 ID:{{$livro->id_livro}}<br>
 Titulo:{{$livro->titulo}}<br>
@@ -47,3 +51,8 @@ Deleted_at:{{$livro->deleted_at}}
 <br>
 <br>
 <a href="{{route('livros.edit', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Editar Livro</a>
+
+<a href="{{route('livros.delete', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Eliminar Livro</a>
+
+
+@endsection

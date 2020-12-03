@@ -49,9 +49,17 @@ class GenerosController extends Controller
         $idgenero = $r->idg;
         
         $genero=Genero::where('id_genero',$idgenero)->with('livros')->first();
-        return view('generos.edit',[
+        
+        if(is_null($genero)){
+                return redirect()->route('generos.index')->with('msg', 'O genero não existe');
+            }
+            else
+            {
+                return view('generos.edit',[
             'genero'=>$genero
         ]);
+            }
+        
     }
     
     
@@ -61,7 +69,13 @@ class GenerosController extends Controller
         $idgenero = $r->idg;
         
         $genero=Genero::where('id_genero',$idgenero)->first();
-        $atualizarGenero = $r->validate ([
+        
+        if(is_null($genero)){
+                return redirect()->route('generos.index')->with('msg', 'O genero não existe');
+            }
+            else
+            {
+                $atualizarGenero = $r->validate ([
               'designacao'=>['required', 'min:3', 'max:30'],
               'observacoes'=>['nullable', 'min:3', 'max:255']
           ]);
@@ -69,6 +83,42 @@ class GenerosController extends Controller
         return redirect()->route('generos.show', [
             'idg'=>$genero->id_genero
         ]);
+            }
+        
     }
+    
+    
+    
+    public function delete(Request $r){
+        $idGenero = $r->idg;
+        
+        $genero=Genero::where('id_genero',$idGenero)->first();
+            if(is_null($genero)){
+                return redirect()->route('generos.index')->with('msg', 'O genero não existe');
+            }
+            else
+            {
+                return view('generos.delete',[
+                'genero'=>$genero
+                ]);
+            }
+        }
+        
+        
+        
+        
+        public function destroy(Request $r){
+        $idGenero = $r->idg;
+    
+        $genero=Genero::where('id_genero',$idGenero)->first();
+            if(is_null($genero)){
+                return redirect()->route('generos.index')->with('msg', 'O genero não existe');
+            }
+            else
+            {
+                $genero->delete();
+                return redirect()->route('generos.index')->with('msg', 'Genero Eliminado');
+            }
+        }
     
 }

@@ -1,4 +1,8 @@
 @extends('layout')
+@section('header')
+Genero
+@endsection
+@section('conteudo')
 <ul>
 IDG:{{$genero->id_genero}}<br>
 Designacao:{{$genero->designacao}}<br>
@@ -17,3 +21,8 @@ Updated_at:{{$genero->updated_at}}<br>
 Deleted_at:{{$genero->deleted_at}}
 </ul>
 <a href="{{route('generos.edit', ['idg'=>$genero->id_genero])}}" class="btn btn-info" role="button">Editar Genero</a>
+
+<a href="{{route('generos.delete', ['idg'=>$genero->id_genero])}}" class="btn btn-info" role="button">Eliminar Genero</a>
+
+
+@endsection

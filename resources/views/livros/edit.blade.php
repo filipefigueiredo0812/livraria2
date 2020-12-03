@@ -56,12 +56,19 @@
     </div>
     @endif
     
-    Género: <input type="text" name="id_genero" value="{{$livro->id_genero}}"><br>
+    Género: <select name="id_genero"><br>
+    @foreach ($generos as $genero)
+        <option value="{{$genero->id_genero}}" @if($genero->id_genero==$livro->id_genero)selected @endif
+            >{{$genero->designacao}}</option>
+    @endforeach
     @if ($errors->has('id_genero'))
     <div class="alert alert-danger" role="alert">
     Género inválido.<br><br>
     </div>
     @endif
+    </select>
+    <br>
+
     
     Autor: <input type="text" name="id_autor" value="{{$livro->id_autor}}"><br>
     @if ($errors->has('id_autor'))

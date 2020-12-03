@@ -1,5 +1,5 @@
 @extends('layout')
-@section('titulo-pagina')
+@section('header')
 Livraria
 @endsection
 @section('conteudo')

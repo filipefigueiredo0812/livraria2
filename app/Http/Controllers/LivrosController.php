@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use App\Models\Genero;
 
 class LivrosController extends Controller
 {
@@ -26,7 +27,10 @@ class LivrosController extends Controller
     }
     
     public function create(){
-        return view('livros.create');
+        $generos = Genero::all();
+        return view('livros.create',[
+            'generos'=>$generos
+        ]);
     }
     
     public function store(Request $r){
@@ -70,10 +74,20 @@ class LivrosController extends Controller
     public function edit(Request $r){
         $idLivro = $r->id;
         
+        $generos=Genero::all();
         $livro=Livro::where('id_livro',$idLivro)->with(['genero','autores','editoras'])->first();
-        return view('livros.edit',[
-            'livro'=>$livro
+        
+        if(is_null($livro)){
+                return redirect()->route('livros.index')->with('msg', 'O livro não existe');
+            }
+            else
+            {
+                return view('livros.edit',[
+            'livro'=>$livro,
+            'generos'=>$generos
         ]);
+            }
+        
     }
     
     
@@ -82,7 +96,12 @@ class LivrosController extends Controller
     public function update(Request $r){
         $idLivro = $r->id;
         $livro=Livro::where('id_livro',$idLivro)->first();
-        $atualizarLivro = $r->validate ([
+        if(is_null($livro)){
+                return redirect()->route('livros.index')->with('msg', 'O livro não existe');
+            }
+            else
+            {
+                $atualizarLivro = $r->validate ([
               'titulo'=>['required', 'min:3', 'max:100'],
               'idioma'=>['nullable', 'min:3', 'max:10'],
               'total_paginas'=>['nullable', 'numeric', 'min:1'],
@@ -99,5 +118,43 @@ class LivrosController extends Controller
         return redirect()->route('livros.show', [
             'id'=>$livro->id_livro
         ]);
+            }
+        
     }
-}
+        
+        
+        
+        public function delete(Request $r){
+        $idLivro = $r->id;
+        
+        $livro=Livro::where('id_livro',$idLivro)->first();
+            if(is_null($livro)){
+                return redirect()->route('livros.index')->with('msg', 'O livro não existe');
+            }
+            else
+            {
+                return view('livros.delete',[
+                'livro'=>$livro
+                ]);
+            }
+        }
+        
+        
+        
+        
+        public function destroy(Request $r){
+        $idLivro = $r->id;
+        
+        $livro=Livro::where('id_livro',$idLivro)->first();
+            if(is_null($livro)){
+                return redirect()->route('livros.index')->with('msg', 'O livro não existe');
+            }
+            else
+            {
+                $livro->delete();
+                return redirect()->route('livros.index')->with('msg', 'Livro Eliminado');
+            }
+        }
+        
+    }
+
