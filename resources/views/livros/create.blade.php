@@ -60,21 +60,41 @@
     @foreach ($generos as $genero)
         <option value="{{$genero->id_genero}}">{{$genero->designacao}}</option>
     @endforeach
+    </select>
     @if ($errors->has('id_genero'))
     <div class="alert alert-danger" role="alert">
     Género inválido.<br><br>
     </div>
     @endif
-    </select>
+    
     <br>
     
     
-    Autor: <input type="text" name="id_autor" value="{{old('id_autor')}}"><br>
+    Autor(es): <select name="id_autor[]" multiple="multiple"><br>
+    @foreach ($autores as $autor)
+    <option value="{{$autor->id_autor}}">{{$autor->nome}}</option>
+    @endforeach
+    </select>
     @if ($errors->has('id_autor'))
     <div class="alert alert-danger" role="alert">
     Autor inválido.<br><br>
     </div>
+    
     @endif
+    <br>
+    
+    Editora(as): <select name="id_editora[]" multiple="multiple"><br>
+    @foreach ($editoras as $editora)
+    <option value="{{$editora->id_editora}}">{{$editora->nome}}</option>
+    @endforeach
+    </select>
+    @if ($errors->has('id_editora'))
+    <div class="alert alert-danger" role="alert">
+    Editora inválida.<br><br>
+    </div>
+    
+    @endif
+    <br>
     
     Sinopse: <textarea type="text" name="sinopse">{{old('sinopse')}}</textarea><br>
     @if ($errors->has('sinopse'))

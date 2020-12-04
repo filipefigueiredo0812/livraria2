@@ -9,7 +9,11 @@ Livraria
 
 @foreach($livros as $livro)
 <li>
+    @if(!is_null($livro->uuid))
+<a href="{{route('livros.show', ['id'=>$livro->uuid])}}">
+    @else
 <a href="{{route('livros.show', ['id'=>$livro->id_livro])}}">
+    @endif
     {{$livro->titulo}}
 </a>
 </li>

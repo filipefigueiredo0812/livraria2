@@ -13,15 +13,6 @@ Total paginas:{{$livro->total_paginas}}<br>
 Observações:{{$livro->observacoes}}<br>
 Imagem Capa:{{$livro->imagem_capa}}<br>
 
-@if(count($livro->editoras)>0)
-        @foreach($livro->editoras as $editora)
-        Data Edição:{{$editora->nome}}<br>
-        @endforeach
-    @else
-        <div class="alert alert-danger" role="alert">
-        Sem o nome do editora definido
-        </div>
-    @endif
 
     @if(isset ($livro->genero->designacao))
         Genero:{{$livro->genero->designacao}}<br>
@@ -34,6 +25,16 @@ Imagem Capa:{{$livro->imagem_capa}}<br>
     @if(count($livro->autores)>0)
         @foreach($livro->autores as $autor)
             Autor:{{$autor->nome}}<br>
+        @endforeach
+    @else
+        <div class="alert alert-danger" role="alert">
+        Sem o nome do autor definido
+        </div>
+    @endif
+    
+    @if(count($livro->editoras)>0)
+        @foreach($livro->editoras as $editora)
+            Editora:{{$editora->nome}}<br>
         @endforeach
     @else
         <div class="alert alert-danger" role="alert">
