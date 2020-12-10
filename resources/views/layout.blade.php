@@ -4,8 +4,7 @@
         <meta charset="utf-8">
         <title>@yield('titulo')</title>
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"> 
-        <link rel="stylesheet" href="{{asset('css/fa.css')}}"> 
-        
+        <link rel="stylesheet" href="{{asset('css/a.css')}}"> 
         <style>
         .container{ width:100%; height:100%;}
             
@@ -52,6 +51,52 @@
                 
                 text-align: center;
             }
+
+            $light-gray:        #f8f9fa;
+$menu-bg:           $light-gray;
+$menu-hover:        darken($menu-bg, 9%);
+
+.menu--main {
+  display: block;
+  position: absolute;
+  bottom: 0;
+
+  li {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    padding: 15px 20px;
+    background-color: $menu-bg;
+    margin-right: -4px;  // get rid of spacing between list items
+    //transition: all 0.2s;
+
+    &:hover {
+      background-color: $menu-hover;
+    }
+    &:hover .sub-menu {      
+      max-height: 300px;
+      visibility: visible;
+      bottom: 100%;  // align to top of parent element
+      transition: all 0.4s linear;
+    }
+  }
+  .sub-menu {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    //top: 100%;  // align to bottom of
+    left: 0;
+    box-shadow: none;
+    max-height: 0;
+    width: 150px;
+    
+    overflow: hidden;
+    
+    li {
+      display: block;
+    }
+  }
+}
             
         </style>
         
@@ -62,8 +107,7 @@
         <h1>@yield('header')</h1>
         <div>
         @yield('conteudo')
-    
-            
+
     @if(session()->has('msg'))
             <br><br>
             <div class="alert alert-danger" role="alert">
@@ -92,6 +136,40 @@
       </li>
         <li class="nav-item">
         <a class="nav-item nav-link" href="{{route('autores.index')}}">Autores</a>
+      </li>
+      @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+                            
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            
+                        @endguest
+      
     </ul>
   </div>
 </nav>
@@ -100,8 +178,8 @@
     </div>
 </div>
         <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
-        <script src="{{asset('js/bootstrap.js')}}"></script>
-        <script src="{{asset('js/fa.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/all.min.js')}}"></script>
 </body>
 </html>
 

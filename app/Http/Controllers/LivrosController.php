@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Livro;
@@ -41,6 +41,7 @@ class LivrosController extends Controller
     }
     
     public function store(Request $r){
+        
           $novoLivro = $r->validate ([
               'titulo'=>['required', 'min:3', 'max:100'],
               'idioma'=>['nullable', 'min:3', 'max:10'],
@@ -53,6 +54,11 @@ class LivrosController extends Controller
               'sinopse'=>['nullable', 'min:3', 'max:255']
                
           ]);
+
+          if(Auth::check()){
+            $userAtual=Auth::user()->id;
+            $livro['id_user']=$userAtual;
+        }
         $novoLivro['uuid']=Str::uuid();
 //        dd($novoLivro);
         $autores=$r->id_autor;

@@ -23,9 +23,11 @@ Created_at:{{$editora->created_at}}<br>
 Updated_at:{{$editora->updated_at}}<br>
 Deleted_at:{{$editora->deleted_at}}
 </ul>
+
+@if(auth()->check())
 <a href="{{route('editoras.edit', ['ide'=>$editora->id_editora])}}" class="btn btn-info" role="button">Editar Editora</a>
 
 <a href="{{route('editoras.delete', ['ide'=>$editora->id_editora])}}" class="btn btn-info" role="button">Eliminar Editora</a>
-
+@endif
 
 @endsection

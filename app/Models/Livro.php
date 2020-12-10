@@ -23,7 +23,8 @@ class Livro extends Model
         'id_genero',
         'id_autor',
         'sinopse',
-        'uuid'
+        'uuid',
+        'id_user'
     ];
         
     

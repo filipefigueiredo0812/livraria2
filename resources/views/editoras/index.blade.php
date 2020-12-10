@@ -14,5 +14,8 @@ Livraria
 @endforeach
     <br>{{$editoras->render()}}
 </ul>
+
+@if(auth()->check())
 <a href="{{route('editoras.create')}}" class="btn btn-info" role="button">Nova Editora</a>
+@endif
 @endsection

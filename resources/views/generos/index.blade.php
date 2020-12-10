@@ -14,5 +14,8 @@ Livraria
 @endforeach
     <br>{{$generos->render()}}
 </ul>
+
+@if(auth()->check())
 <a href="{{route('generos.create')}}" class="btn btn-info" role="button">Novo Género</a>
+@endif
 @endsection

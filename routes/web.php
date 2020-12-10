@@ -55,70 +55,73 @@ Route::post('/form','App\Http\Controllers\PesquisaController@formenviado')
 
 
 Route::get('/livros/create','App\Http\Controllers\LivrosController@create')
-    ->name('livros.create');
+    ->name('livros.create')->middleware('auth');
 Route::post('/livros/store','App\Http\Controllers\LivrosController@store')
-    ->name('livros.store');
+    ->name('livros.store')->middleware('auth');
 Route::get('/livros/{id}/edit','App\Http\Controllers\LivrosController@edit')
-    ->name('livros.edit');
+    ->name('livros.edit')->middleware('auth');
 Route::patch('/livros/{id}','App\Http\Controllers\LivrosController@update')
-    ->name('livros.update');
+    ->name('livros.update')->middleware('auth');
 
 
 Route::get('/livros/{id}/delete','App\Http\Controllers\LivrosController@delete')
-    ->name('livros.delete');
+    ->name('livros.delete')->middleware('auth');
 Route::delete('/livros','App\Http\Controllers\LivrosController@destroy')
-    ->name('livros.destroy');
+    ->name('livros.destroy')->middleware('auth');
 
 
 
 
 Route::get('/generos/create','App\Http\Controllers\GenerosController@create')
-    ->name('generos.create');
+    ->name('generos.create')->middleware('auth');
 Route::post('/generos/store','App\Http\Controllers\GenerosController@store')
-    ->name('generos.store');
+    ->name('generos.store')->middleware('auth');
 Route::get('/generos/{idg}/edit','App\Http\Controllers\GenerosController@edit')
-    ->name('generos.edit');
+    ->name('generos.edit')->middleware('auth');
 Route::patch('/generos/{idg}','App\Http\Controllers\GenerosController@update')
-    ->name('generos.update');
+    ->name('generos.update')->middleware('auth');
 
 
 Route::get('/generos/{idg}/delete','App\Http\Controllers\GenerosController@delete')
-    ->name('generos.delete');
+    ->name('generos.delete')->middleware('auth');
 Route::delete('/generos','App\Http\Controllers\GenerosController@destroy')
-    ->name('generos.destroy');
+    ->name('generos.destroy')->middleware('auth');
 
 
 
 
 
 Route::get('/editoras/create','App\Http\Controllers\EditorasController@create')
-    ->name('editoras.create');
+    ->name('editoras.create')->middleware('auth');
 Route::post('/editoras/store','App\Http\Controllers\EditorasController@store')
-    ->name('editoras.store');
+    ->name('editoras.store')->middleware('auth');
 Route::get('/editoras/{ide}/edit','App\Http\Controllers\EditorasController@edit')
-    ->name('editoras.edit');
+    ->name('editoras.edit')->middleware('auth');
 Route::patch('/editoras/{ide}','App\Http\Controllers\EditorasController@update')
-    ->name('editoras.update');
+    ->name('editoras.update')->middleware('auth');
 
 Route::get('/editoras/{ide}/delete','App\Http\Controllers\EditorasController@delete')
-    ->name('editoras.delete');
+    ->name('editoras.delete')->middleware('auth');
 Route::delete('/editoras','App\Http\Controllers\EditorasController@destroy')
-    ->name('editoras.destroy');
+    ->name('editoras.destroy')->middleware('auth');
 
 
 
 
 Route::get('/autores/create','App\Http\Controllers\AutoresController@create')
-    ->name('autores.create');
+    ->name('autores.create')->middleware('auth');
 Route::post('/autores/store','App\Http\Controllers\AutoresController@store')
-    ->name('autores.store');
+    ->name('autores.store')->middleware('auth');
 Route::get('/autores/{ida}/edit','App\Http\Controllers\AutoresController@edit')
-    ->name('autores.edit');
+    ->name('autores.edit')->middleware('auth');
 Route::patch('/autores/{ida}','App\Http\Controllers\AutoresController@update')
-    ->name('autores.update');
+    ->name('autores.update')->middleware('auth');
 
 
 Route::get('/autores/{ida}/delete','App\Http\Controllers\AutoresController@delete')
-    ->name('autores.delete');
+    ->name('autores.delete')->middleware('auth');
 Route::delete('/autores','App\Http\Controllers\AutoresController@destroy')
-    ->name('autores.destroy');
+    ->name('autores.destroy')->middleware('auth');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
