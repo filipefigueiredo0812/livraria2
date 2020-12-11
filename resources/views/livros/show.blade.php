@@ -45,7 +45,15 @@ Imagem Capa:{{$livro->imagem_capa}}<br>
 Sinopse:{{$livro->sinopse}}<br>
 Created_at:{{$livro->created_at}}<br>
 Updated_at:{{$livro->updated_at}}<br>
-Deleted_at:{{$livro->deleted_at}}
+Deleted_at:{{$livro->deleted_at}}<br>
+
+@if(isset ($livro->users->name))
+        Registado por: {{$livro->users->name}}<br>
+    @else
+        <div class="alert alert-danger" role="alert">
+        Não foi registado por um utilizador.<br>
+        </div>
+    @endif
 </ul>
 
 
@@ -53,11 +61,16 @@ Deleted_at:{{$livro->deleted_at}}
 <br>
 
 @if(auth()->check())
-
+@if(auth()->user()->id==$livro->id_user)
 <a href="{{route('livros.edit', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Editar Livro</a>
 
 <a href="{{route('livros.delete', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Eliminar Livro</a>
+@endif
+@if($livro->id_user==NULL)
+<a href="{{route('livros.edit', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Editar Livro</a>
 
+<a href="{{route('livros.delete', ['id'=>$livro->id_livro])}}" class="btn btn-info" role="button">Eliminar Livro</a>
+@endif
 @endif
 
 @endsection

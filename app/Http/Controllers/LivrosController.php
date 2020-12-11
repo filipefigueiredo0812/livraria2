@@ -8,6 +8,7 @@ use App\Models\Livro;
 use App\Models\Genero;
 use App\Models\Autor;
 use App\Models\Editora;
+use App\Models\User;
 
 class LivrosController extends Controller
 {
@@ -23,10 +24,11 @@ class LivrosController extends Controller
         $idLivro = $request->id;
         //$livro=Livro::findOrFail($idLivro);
         //$livro=Livro::find($idLivro);
-        $livro=Livro::where('uuid',$idLivro)->orWhere('id_livro', $idLivro)->with(['genero','autores','editoras'])->first();
+        $livro=Livro::where('uuid',$idLivro)->orWhere('id_livro', $idLivro)->with(['genero','autores','editoras','users'])->first();
         return view('livros.show',[
             'livro'=>$livro
         ]);
+
     }
     
     public function create(){
@@ -57,7 +59,7 @@ class LivrosController extends Controller
 
           if(Auth::check()){
             $userAtual=Auth::user()->id;
-            $livro['id_user']=$userAtual;
+            $novoLivro['id_user']=$userAtual;
         }
         $novoLivro['uuid']=Str::uuid();
 //        dd($novoLivro);
@@ -119,7 +121,33 @@ class LivrosController extends Controller
             'editorasLivro'=>$editorasLivro
         ]);
             }
-        
+
+
+    if(isset($livro->id_user)){
+        if(Auth::user()->id==$livro->id_user){
+            return view('livros.edit',[
+                'livro'=>$livro,
+                'generos'=>$generos,
+                'autores'=>$autores,
+                'editoras'=>$editoras,
+                'autoresLivro'=>$autoresLivro,
+                'editorasLivro'=>$editorasLivro
+            ]);
+        }
+        else{
+            return view('index');
+        }
+    }
+    else{
+            return view('livros.edit',[
+            'livro'=>$livro,
+            'generos'=>$generos,
+            'autores'=>$autores,
+            'editoras'=>$editoras,
+            'autoresLivro'=>$autoresLivro,
+            'editorasLivro'=>$editorasLivro
+            ]);
+        }
     }
     
     
@@ -172,6 +200,23 @@ class LivrosController extends Controller
                 'livro'=>$livro
                 ]);
             }
+
+            if(isset($livro->id_user)){
+                if(Auth::user()->id==$livro->id_user){
+                    return view('livros.delete',[
+                        'livro'=>$livro
+                        ]);
+                }
+                else{
+                    return view('index');
+                }
+                }
+            else{
+                return view('livros.delete',[
+                    'livro'=>$livro
+                    ]);
+                    
+                }
         }
         
         
