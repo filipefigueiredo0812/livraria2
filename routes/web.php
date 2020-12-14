@@ -69,6 +69,9 @@ Route::get('/livros/{id}/delete','App\Http\Controllers\LivrosController@delete')
 Route::delete('/livros','App\Http\Controllers\LivrosController@destroy')
     ->name('livros.destroy')->middleware('auth');
 
+    Route::get('/livros/{id}/like','App\Http\Controllers\LivrosController@like')
+    ->name('livros.like')->middleware('auth');
+
 
 
 

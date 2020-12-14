@@ -9,6 +9,7 @@ use App\Models\Genero;
 use App\Models\Autor;
 use App\Models\Editora;
 use App\Models\User;
+use App\Models\Like;
 
 class LivrosController extends Controller
 {
@@ -24,7 +25,7 @@ class LivrosController extends Controller
         $idLivro = $request->id;
         //$livro=Livro::findOrFail($idLivro);
         //$livro=Livro::find($idLivro);
-        $livro=Livro::where('uuid',$idLivro)->orWhere('id_livro', $idLivro)->with(['genero','autores','editoras','users'])->first();
+        $livro=Livro::where('uuid',$idLivro)->orWhere('id_livro', $idLivro)->with(['genero','autores','editoras','users','like'])->first();
         return view('livros.show',[
             'livro'=>$livro
         ]);
@@ -241,6 +242,20 @@ class LivrosController extends Controller
                 return redirect()->route('livros.index')->with('msg', 'Livro Eliminado');
             }
         }
+
+    public function like(Request $r){
+        $idLivro = $r->id;
         
-    }
+        $novoLike['id_livro']=$idLivro;
+        $novoLike['id_user']=Auth::user()->id;
+
+        Like::create($novoLike);
+        //$likes = Like::where('id_livro', $idLivro)->count();
+        $likes = Like::where('id_user', Auth::user()->id)->where('id_livro', $idLivro)->first();
+        return redirect()->route('livros.show',[
+            'id'=>$idLivro
+        ]);
+    } 
+        
+}
 
