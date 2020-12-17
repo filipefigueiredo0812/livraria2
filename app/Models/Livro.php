@@ -33,6 +33,10 @@ class Livro extends Model
     public function users(){
         return $this->belongsTo('App\Models\User','id_user');
     }
+
+    public function likes(){
+        return $this->belongsTo('App\Models\Like','id_user');
+    }
     
     public function genero(){
         return $this->belongsTo('App\Models\Genero','id_genero');

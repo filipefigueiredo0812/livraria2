@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Editora;
 
 class EditorasController extends Controller
@@ -26,10 +27,17 @@ class EditorasController extends Controller
     }
     
     public function create(){
+        if(Gate::allows('admin')){
         return view('editoras.create');
+        }
+        else{
+            return redirect()->route('editoras.index')
+        ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+        }
     }
     
     public function store(Request $r){
+        if(Gate::allows('admin')){
           $novoEditora = $r->validate ([
               'nome'=>['required', 'min:3', 'max:100'],
               'morada'=>['nullable', 'min:3', 'max:255'],
@@ -42,12 +50,17 @@ class EditorasController extends Controller
         return redirect()->route('editoras.show', [
             'ide'=>$editora->id_editora
         ]);
-        
+        }
+        else{
+            return redirect()->route('editoras.index')
+        ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+        }
     }
     
     public function edit(Request $request){
         $idEditora = $request->ide;
         $editora=Editora::where('id_editora',$idEditora)->with('livros')->first();
+        if(Gate::allows('admin')){
         if(is_null($editora)){
             return redirect()->route('editoras.index')->with('msg', 'A editora não existe');
             }
@@ -57,11 +70,16 @@ class EditorasController extends Controller
         ]);
         }
     }
+    else{
+        return redirect()->route('editoras.index')
+    ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+    }
+    }
     
     public function update(Request $request){
         $idEditora = $request->ide;
         $editora=Editora::where('id_editora',$idEditora)->first();
-        
+        if(Gate::allows('admin')){
         if(is_null($editora)){
             return redirect()->route('editoras.index')->with('msg', 'A editora não existe');
         }
@@ -76,16 +94,20 @@ class EditorasController extends Controller
             'ide'=>$editora->id_editora
         ]);
         }
-        
-        
-        
+    }
+        else{
+            return redirect()->route('editoras.index')
+        ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+        }
         
     }
-    
+        
+        
     public function delete(Request $r){
         $idEditora = $r->ide;
         
         $editora=Editora::where('id_editora',$idEditora)->first();
+        if(Gate::allows('admin')){
             if(is_null($editora)){
                 return redirect()->route('editoras.index')->with('msg', 'A editora não existe');
             }
@@ -96,14 +118,20 @@ class EditorasController extends Controller
                 ]);
             }
         }
+        else{
+            return redirect()->route('editoras.index')
+        ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+        }
+        }
         
         
         
         
         public function destroy(Request $r){
         $idEditora = $r->ide;
-    
+        
         $editora=Editora::where('id_editora',$idEditora)->first();
+        if(Gate::allows('admin')){
             if(is_null($editora)){
                 return redirect()->route('editoras.index')->with('msg', 'A editora não existe');
             }
@@ -114,4 +142,9 @@ class EditorasController extends Controller
             }
         }
     
+    else{
+        return redirect()->route('editoras.index')
+    ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+    }
+}
 }

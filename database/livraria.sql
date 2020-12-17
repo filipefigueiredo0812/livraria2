@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10-Dez-2020 às 16:08
+-- Generation Time: 14-Dez-2020 às 18:25
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -162,6 +162,20 @@ INSERT INTO `generos` (`id_genero`, `designacao`, `observacoes`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `likes`
+--
+
+CREATE TABLE `likes` (
+  `id_like` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_livro` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `livros`
 --
 
@@ -264,6 +278,12 @@ ALTER TABLE `generos`
   ADD PRIMARY KEY (`id_genero`);
 
 --
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id_like`);
+
+--
 -- Indexes for table `livros`
 --
 ALTER TABLE `livros`
@@ -302,6 +322,12 @@ ALTER TABLE `editoras`
 --
 ALTER TABLE `generos`
   MODIFY `id_genero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `livros`

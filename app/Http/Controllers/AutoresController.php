@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Autor;
 
 class AutoresController extends Controller
@@ -26,7 +27,13 @@ class AutoresController extends Controller
     }
     
     public function create(){
+        if(Gate::allows('admin')){
         return view('autores.create');
+    }
+    else{
+        return redirect()->route('livros.index')
+        ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+    }
     }
     
     public function store(Request $r){
