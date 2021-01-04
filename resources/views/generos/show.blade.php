@@ -22,9 +22,10 @@ Deleted_at:{{$genero->deleted_at}}
 </ul>
 
 @if(auth()->check())
+@if(Gate::allows('admin'))
 <a href="{{route('generos.edit', ['idg'=>$genero->id_genero])}}" class="btn btn-info" role="button">Editar Genero</a>
 
 <a href="{{route('generos.delete', ['idg'=>$genero->id_genero])}}" class="btn btn-info" role="button">Eliminar Genero</a>
 @endif
-
+@endif
 @endsection

@@ -49,7 +49,8 @@ Route::get('/','App\Http\Controllers\PesquisaController@index')
 Route::post('/form','App\Http\Controllers\PesquisaController@formenviado')
     ->name('pesquisa.form');
 
-
+    Route::get('/users','App\Http\Controllers\UsersController@index')
+    ->name('users.index');
 
 
 

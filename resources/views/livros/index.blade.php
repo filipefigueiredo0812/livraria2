@@ -23,6 +23,8 @@ Livraria
 </ul>
 
 @if(auth()->check())
+@if(Gate::allows('admin'))
 <a href="{{route('livros.create')}}" class="btn btn-info" role="button">Novo Livro</a>
+@endif
 @endif
 @endsection

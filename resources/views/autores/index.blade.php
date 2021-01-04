@@ -15,6 +15,8 @@ Livraria
    <br> {{$autores->render()}}
 </ul>
 @if(auth()->check())
+@if(Gate::allows('admin'))
 <a href="{{route('autores.create')}}" class="btn btn-info" role="button">Novo Autor</a>
+@endif
 @endif
 @endsection

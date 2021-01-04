@@ -25,9 +25,10 @@ Deleted_at:{{$editora->deleted_at}}
 </ul>
 
 @if(auth()->check())
+@if(Gate::allows('admin'))
 <a href="{{route('editoras.edit', ['ide'=>$editora->id_editora])}}" class="btn btn-info" role="button">Editar Editora</a>
 
 <a href="{{route('editoras.delete', ['ide'=>$editora->id_editora])}}" class="btn btn-info" role="button">Eliminar Editora</a>
 @endif
-
+@endif
 @endsection

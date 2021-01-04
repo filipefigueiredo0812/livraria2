@@ -13,9 +13,10 @@
             margin: 0;
             }
             body{
-            background: #536976;  
-            background: -webkit-linear-gradient(to right, #292E49, #536976); 
-            background: linear-gradient(to right, #292E49, #536976);
+              background: #EDE574;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #E1F5C4, #EDE574); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 
             background-repeat: no-repeat; height:100%;
             }
@@ -137,6 +138,11 @@ $menu-hover:        darken($menu-bg, 9%);
         <li class="nav-item">
         <a class="nav-item nav-link" href="{{route('autores.index')}}">Autores</a>
       </li>
+      @if(Gate::allows('admin'))
+      <li class="nav-item">
+        <a class="nav-item nav-link" href="{{route('users.index')}}">Users</a>
+      </li>
+      @endif
       @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

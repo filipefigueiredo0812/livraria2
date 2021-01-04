@@ -16,6 +16,8 @@ Livraria
 </ul>
 
 @if(auth()->check())
+@if(Gate::allows('admin'))
 <a href="{{route('editoras.create')}}" class="btn btn-info" role="button">Nova Editora</a>
+@endif
 @endif
 @endsection
