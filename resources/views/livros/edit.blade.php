@@ -4,7 +4,7 @@
     @endsection
     
 @section('conteudo')
-<form action="{{route('livros.update', ['id'=>$livro->id_livro])}}" method="post">
+<form action="{{route('livros.update', ['id'=>$livro->id_livro])}}" method="post"  enctype="multipart/form-data">
 @csrf
     @method('patch')
     <div class="form-group row">
@@ -62,7 +62,7 @@
     </div>
     
     <div class="form-group row">
-    Imagem Capa: <input type="text" name="imagem_capa" value="{{$livro->imagem_capa}}"><br>
+    Imagem Capa: <input type="file" name="imagem_capa" value="{{$livro->imagem_capa}}"><br>
     @if ($errors->has('imagem_capa'))
     <div class="alert alert-danger" role="alert">
     Imagem inválida.<br><br>

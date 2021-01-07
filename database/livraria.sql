@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 14-Dez-2020 às 18:25
+-- Generation Time: 07-Jan-2021 às 11:02
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -241,8 +241,9 @@ CREATE TABLE `users` (
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Filipe', 'filipe1234@gmail.com', NULL, '$2y$10$QlAeolxvvs/HNP.m5Rs7Q.lmkkhwJbY9SeY/7ZuxDDW6CItEfksA.', NULL, '2020-12-10 13:55:16', '2020-12-10 13:55:16');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `tipo_user`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Filipe', 'filipe1234@gmail.com', NULL, '$2y$10$bYhtsZG9IjTEk2rIl4ZdVOylYuiveGc9zxXoGyNTsvlp2qLKNVFpy', 'admin', NULL, '2021-01-07 10:01:25', '2021-01-07 10:01:25'),
+(2, 'Alberto', 'alberto1234@gmail.com', NULL, '$2y$10$POPIjLQ.KiuYtgpzaq6OZu2rwH5Wrq8fEPsPgNBjSlZWSKmuPq/Ry', 'normal', NULL, '2021-01-07 10:01:56', '2021-01-07 10:01:56');
 
 --
 -- Indexes for dumped tables
@@ -340,7 +341,7 @@ ALTER TABLE `livros`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -4,7 +4,7 @@
     @endsection
     
 @section('conteudo')
-<form action="{{route('livros.store')}}" method="post">
+<form action="{{route('livros.store')}}" method="post" enctype="multipart/form-data">
 @csrf
     
     Título*: <input type="text" name="titulo" value="{{old('titulo')}}"><br>
@@ -49,7 +49,7 @@
     </div>
     @endif
     
-    Imagem Capa: <input type="text" name="imagem_capa" value="{{old('imagem_capa')}}"><br>
+    Imagem Capa: <input type="file" name="imagem_capa" value="{{old('imagem_capa')}}"><br>
     @if ($errors->has('imagem_capa'))
     <div class="alert alert-danger" role="alert">
     Imagem inválida.<br><br>

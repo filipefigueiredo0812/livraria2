@@ -60,12 +60,21 @@ class LivrosController extends Controller
               'data_edicao'=>['nullable', 'date'],
               'isbn'=>['required', 'min:13', 'max:13'],
               'observacoes'=>['nullable', 'min:3', 'max:255'],
-              'imagem_capa'=>['nullable'],
+              'imagem_capa'=>['image','nullable','max:2000'],
               'id_genero'=>['numeric', 'nullable'],
               'sinopse'=>['nullable', 'min:3', 'max:255']
                
           ]);
+          if($r->hasFile('imagem_capa')){
 
+
+              $nomeImagem = $r->file('imagem_capa')->getClientOriginalName();
+            
+              $nomeImagem = time(). '_' . $nomeImagem;
+              $guardarImagem = $r->file('imagem_capa')->storeAs('imagens\livros', $nomeImagem);
+
+              $novoLivro['imagem_capa']= $nomeImagem;
+          }
           if(Auth::check()){
             $userAtual=Auth::user()->id;
             $novoLivro['id_user']=$userAtual;
@@ -133,7 +142,55 @@ class LivrosController extends Controller
         ->with('mensagem','Não tem acesso para aceder à área pretendida.');
     }
     }
+
+
+
+
+    public function update(Request $r){
+        $idLivro=$r->id;
+        $livro=Livro::where('id_livro', $idLivro)->first();
+        if(Gate::allows('admin')){
+          $atualizarLivro = $r->validate ([
+              'titulo'=>['required', 'min:3', 'max:100'],
+              'idioma'=>['nullable', 'min:3', 'max:10'],
+              'total_paginas'=>['nullable', 'numeric', 'min:1'],
+              'data_edicao'=>['nullable', 'date'],
+              'isbn'=>['required', 'min:13', 'max:13'],
+              'observacoes'=>['nullable', 'min:3', 'max:255'],
+              'imagem_capa'=>['image','nullable','max:2000'],
+              'id_genero'=>['numeric', 'nullable'],
+              'sinopse'=>['nullable', 'min:3', 'max:255']
+               
+          ]);
+
+          if($r->hasFile('imagem_capa')){
+
+
+            $nomeImagem = $r->file('imagem_capa')->getClientOriginalName();
+          
+            $nomeImagem = time(). '_' . $nomeImagem;
+            $guardarImagem = $r->file('imagem_capa')->storeAs('imagens\livros', $nomeImagem);
+            
+            $atualizarLivro['imagem_capa']= $nomeImagem;
+            //dd($atualizarLivro);
+        }
+        $autores=$r->id_autor;
+        $editoras=$r->id_editora;
+
+        $livro->update($atualizarLivro);
+        $livro->autores()->sync($autores);
+        $livro->editoras()->sync($editoras);
         
+        
+        return redirect()->route('livros.show', [
+            'id'=>$livro->id_livro
+        ]);
+        }
+        else{
+            return redirect()->route('livros.index')
+        ->with('mensagem','Não tem acesso para aceder à área pretendida.');
+        }
+    }
         
         
         public function delete(Request $r){
