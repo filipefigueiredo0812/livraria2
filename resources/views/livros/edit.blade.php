@@ -123,6 +123,16 @@
     </div>
     @endif
     </div>
+
+<div class="form-group row">
+    Sinopse(PDF): <input type="file" name="sinopse_pdf"></input><br>
+    @if ($errors->has('sinopse_pdf'))
+    <div class="alert alert-danger" role="alert">
+    PDF Inválido.<br><br>
+    </div>
+    @endif
+    </div>
+
     <input type="submit" value="enviar">
     
 

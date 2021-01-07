@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Livro;
 use App\Models\Genero;
@@ -62,8 +63,8 @@ class LivrosController extends Controller
               'observacoes'=>['nullable', 'min:3', 'max:255'],
               'imagem_capa'=>['image','nullable','max:2000'],
               'id_genero'=>['numeric', 'nullable'],
-              'sinopse'=>['nullable', 'min:3', 'max:255']
-               
+              'sinopse'=>['nullable', 'min:3', 'max:255'],
+              'sinopse_pdf'=>['file','mimes:pdf', 'max:2000']  
           ]);
           if($r->hasFile('imagem_capa')){
 
@@ -75,6 +76,15 @@ class LivrosController extends Controller
 
               $novoLivro['imagem_capa']= $nomeImagem;
           }
+          if($r->hasFile('sinopse_pdf')){
+
+
+            $nomePDF = $r->file('sinopse_pdf')->getClientOriginalName();
+          
+            $guardarPDF = $r->file('sinopse_pdf')->storeAs('ficheiros\livros', $nomePDF);
+
+            $novoPDF['sinopse_pdf']= $nomePDF;
+        }
           if(Auth::check()){
             $userAtual=Auth::user()->id;
             $novoLivro['id_user']=$userAtual;
@@ -149,6 +159,7 @@ class LivrosController extends Controller
     public function update(Request $r){
         $idLivro=$r->id;
         $livro=Livro::where('id_livro', $idLivro)->first();
+        $PDFAntigo = $livro->sinopse_pdf;
         if(Gate::allows('admin')){
           $atualizarLivro = $r->validate ([
               'titulo'=>['required', 'min:3', 'max:100'],
@@ -159,19 +170,24 @@ class LivrosController extends Controller
               'observacoes'=>['nullable', 'min:3', 'max:255'],
               'imagem_capa'=>['image','nullable','max:2000'],
               'id_genero'=>['numeric', 'nullable'],
-              'sinopse'=>['nullable', 'min:3', 'max:255']
+              'sinopse'=>['nullable', 'min:3', 'max:255'],
+              'sinopse_pdf'=>['file','mimes:pdf', 'max:2000']  
                
           ]);
 
-          if($r->hasFile('imagem_capa')){
+          if($r->hasFile('sinopse_pdf')){
 
 
-            $nomeImagem = $r->file('imagem_capa')->getClientOriginalName();
+            $nomePDF = $r->file('sinopse_pdf')->getClientOriginalName();
           
-            $nomeImagem = time(). '_' . $nomeImagem;
-            $guardarImagem = $r->file('imagem_capa')->storeAs('imagens\livros', $nomeImagem);
+            $nomePDF = time(). '_' . $nomePDF;
+            $guardarPDF = $r->file('sinopse_pdf')->storeAs('ficheiros\livros', $nomePDF);
             
-            $atualizarLivro['imagem_capa']= $nomeImagem;
+            if(!is_null($PDFAntigo)){
+                Storage::Delete('ficheiros/livros/'. $PDFAntigo);
+            }
+
+            $atualizarLivro['sinopse_pdf']= $nomePDF;
             //dd($atualizarLivro);
         }
         $autores=$r->id_autor;
